@@ -1,8 +1,8 @@
-const cardTempate = document.querySelector("#card-template");
+const cardTemplate = document.querySelector("#card-template");
 const placesList = document.querySelector(".places__list");
 
 function createCard(cardName, cardLink, deleteCard) {
-  const newCard = cardTempate.content.querySelector(".card").cloneNode(true);
+  const newCard = cardTemplate.content.querySelector(".card").cloneNode(true);
   newCard.querySelector(".card__image").src = cardLink;
   newCard.querySelector(".card__image").alt = cardName;
   newCard.querySelector(".card__title").textContent = cardName;
