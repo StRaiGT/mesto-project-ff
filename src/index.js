@@ -2,6 +2,7 @@ import "/src/pages/index.css";
 import { initialCards } from "./components/cards.js";
 import { createCard, deleteCard, likeCard } from "./components/card.js";
 import { openPopup, closePopup } from "./components/modal.js";
+import { enableValidation, clearValidation } from "./components/validation.js";
 
 const popups = document.querySelectorAll(".popup");
 const placesList = document.querySelector(".places__list");
@@ -13,6 +14,7 @@ const profileDescriptionInput = popupEditProfile.querySelector(".popup__input_ty
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 
+const popupAddCardForm = document.forms["new-place"];
 const cardAddButton = document.querySelector(".profile__add-button");
 const popupAddCard = document.querySelector(".popup_type_new-card");
 const cardNameInput = popupAddCard.querySelector(".popup__input_type_card-name");
@@ -21,6 +23,15 @@ const cardLinkInput = popupAddCard.querySelector(".popup__input_type_url");
 const popupImage = document.querySelector(".popup_type_image");
 const popupCardImage = document.querySelector(".popup__image");
 const popupCardCaption = document.querySelector(".popup__caption");
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
 
 popups.forEach((popup) => {
   popup.addEventListener("click", (evt) => {
@@ -46,6 +57,7 @@ initialCards.forEach((initialCard) => {
 });
 
 profileEditButton.addEventListener("click", () => {
+  clearValidation(popupEditProfile, validationConfig);
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
   openPopup(popupEditProfile);
@@ -59,6 +71,8 @@ popupEditProfile.addEventListener("submit", (evt) => {
 });
 
 cardAddButton.addEventListener("click", () => {
+  popupAddCardForm.reset();
+  clearValidation(popupAddCard, validationConfig);
   openPopup(popupAddCard);
 });
 
@@ -71,6 +85,6 @@ popupAddCard.addEventListener("submit", (evt) => {
   const newCard = createCard(newCardData, deleteCard, openPopupImage, likeCard);
   placesList.prepend(newCard);
   closePopup(popupAddCard);
-  cardNameInput.value = "";
-  cardLinkInput.value = "";
 });
+
+enableValidation(validationConfig);
