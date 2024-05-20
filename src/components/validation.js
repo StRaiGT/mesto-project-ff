@@ -61,7 +61,7 @@ function disableButton(buttonElement, inactiveButtonClass) {
 
 function enableButton(buttonElement, inactiveButtonClass) {
   buttonElement.disabled = false;
-    buttonElement.classList.remove(inactiveButtonClass);
+  buttonElement.classList.remove(inactiveButtonClass);
 }
 
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
