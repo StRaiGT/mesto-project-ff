@@ -32,6 +32,7 @@ const profileImageEditButton = document.querySelector(".profile__image-edit-butt
 const popupEditProfileImageForm = document.forms["update-profile-image"];
 const popupEditProfileImage = document.querySelector(".popup_type_update-profile-image");
 
+const cardTemplate = document.querySelector("#card-template");
 const popupAddCardForm = document.forms["new-place"];
 const cardAddButton = document.querySelector(".profile__add-button");
 const popupAddCard = document.querySelector(".popup_type_new-card");
@@ -169,6 +170,7 @@ popupAddCard.addEventListener("submit", (evt) => {
   addNewCardAPI(newCardData)
     .then((newCardResponse) => {
       const newCard = createCardDOM(
+        cardTemplate,
         newCardResponse,
         profileInfo.dataset.profileId,
         deleteCard,
@@ -211,6 +213,7 @@ getInitialDataAPI()
 
     initialCards.forEach((initialCard) => {
       const newCard = createCardDOM(
+        cardTemplate,
         initialCard,
         profileInfo.dataset.profileId,
         deleteCard,

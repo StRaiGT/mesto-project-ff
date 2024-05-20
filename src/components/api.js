@@ -13,12 +13,7 @@ const checkResponseStatus = (res) => {
 };
 
 const sendRequest = (url, options) => {
-  return fetch(url, options)
-    .then(checkResponseStatus)
-    .catch((err) => {
-      console.log(err);
-      alert(err);
-    });
+  return fetch(url, options).then(checkResponseStatus);
 };
 
 const getUserData = () => {

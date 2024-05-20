@@ -1,11 +1,11 @@
 function createCardDOM(
+  cardTemplate,
   cardData,
   profileId,
   deleteCard,
   openPopupImage,
   changeLikeCard
 ) {
-  const cardTemplate = document.querySelector("#card-template");
   const newCard = cardTemplate.content.querySelector(".card").cloneNode(true);
   newCard.querySelector(".card__title").textContent = cardData.name;
 

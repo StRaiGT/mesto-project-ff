@@ -54,13 +54,21 @@ function hasInvalidInput(inputList) {
   });
 }
 
+function disableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.disabled = true;
+  buttonElement.classList.add(inactiveButtonClass);
+}
+
+function enableButton(buttonElement, inactiveButtonClass) {
+  buttonElement.disabled = false;
+    buttonElement.classList.remove(inactiveButtonClass);
+}
+
 function toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(inactiveButtonClass);
+    disableButton(buttonElement, inactiveButtonClass);
   } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove(inactiveButtonClass);
+    enableButton(buttonElement, inactiveButtonClass);
   }
 }
 
@@ -124,8 +132,7 @@ function clearValidation(formElement, validationConfig) {
     );
   });
 
-  submitButtonElement.disabled = true;
-  submitButtonElement.classList.add(validationConfig.inactiveButtonClass);
+  disableButton(submitButtonElement, validationConfig.inactiveButtonClass);
 }
 
 export { enableValidation, clearValidation };

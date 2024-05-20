@@ -1,12 +1,14 @@
 .popup__error {
+  position: absolute;
+  margin-top: 52px;
+  opacity: 0;
   color: #ff0000;
   font-weight: 400;
   font-size: 12px;
   font-style: normal;
   line-height: 14px;
-  margin-top: 5px;
 }
 
 .popup__error_visible {
-  display: block;
+  opacity: 1;
 }
