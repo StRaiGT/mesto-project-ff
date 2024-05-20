@@ -1,28 +1,51 @@
-function createCard(cardData, deleteCard, openPopupImage, likeCard) {
+function createCardDOM(
+  cardData,
+  profileId,
+  deleteCard,
+  openPopupImage,
+  changeLikeCard
+) {
   const cardTemplate = document.querySelector("#card-template");
   const newCard = cardTemplate.content.querySelector(".card").cloneNode(true);
   newCard.querySelector(".card__title").textContent = cardData.name;
+
+  newCard.dataset.cardId = cardData._id;
+  newCard.dataset.cardOwnerId = cardData.owner._id;
 
   const newCardImage = newCard.querySelector(".card__image");
   newCardImage.src = cardData.link;
   newCardImage.alt = cardData.name;
   newCardImage.addEventListener("click", openPopupImage);
 
+  const likeCounter = newCard.querySelector(".card__like-counter");
+  likeCounter.textContent = cardData.likes.length;
+
   const likeButton = newCard.querySelector(".card__like-button");
-  likeButton.addEventListener("click", () => likeCard(likeButton));
+  if (cardData.likes.some((like) => like._id === profileId)) {
+    toggleCardLikeState(likeButton);
+  }
+  likeButton.addEventListener("click", () => {
+    changeLikeCard(newCard.dataset.cardId, likeButton, likeCounter);
+  });
 
   const deleteButton = newCard.querySelector(".card__delete-button");
-  deleteButton.addEventListener("click", () => deleteCard(newCard));
+  if (profileId === cardData.owner._id) {
+    deleteButton.addEventListener("click", () => {
+      deleteCard(newCard);
+    });
+  } else {
+    deleteButton.remove();
+  }
 
   return newCard;
 }
 
-function deleteCard(card) {
+function deleteCardDOM(card) {
   card.remove();
 }
 
-function likeCard(likeButton) {
+function toggleCardLikeState(likeButton) {
   likeButton.classList.toggle("card__like-button_is-active");
 }
 
-export { createCard, deleteCard, likeCard };
+export { createCardDOM, deleteCardDOM, toggleCardLikeState };
